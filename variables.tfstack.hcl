@@ -1,7 +1,7 @@
 variable "location" {
   description = "Location for the resources"
   type        = string
-  default = "eastus"
+  default = "uksouth"
 }
 
 variable "prefix" {
