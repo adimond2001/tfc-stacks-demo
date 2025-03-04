@@ -34,21 +34,21 @@ component "vm" {
     }
 }
 
-component "database" {
-    source = "./database"
+# component "database" {
+#     source = "./database"
 
-    inputs = {
-        location = var.location
-        prefix = var.prefix
-        suffix = var.suffix
-        tags = var.tags
-    }
+#     inputs = {
+#         location = var.location
+#         prefix = var.prefix
+#         suffix = var.suffix
+#         tags = var.tags
+#     }
 
-    providers = {
-        azurerm = provider.azurerm.this
-        random = provider.random.this
-        modtm = provider.modtm.this
-    }
+#     providers = {
+#         azurerm = provider.azurerm.this
+#         random = provider.random.this
+#         modtm = provider.modtm.this
+#     }
 
-    depends_on = [component.vm]
-}
+#     depends_on = [component.vm]
+# }
