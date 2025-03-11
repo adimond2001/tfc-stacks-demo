@@ -1,6 +1,6 @@
 # tfc-stacks-demo
 
-Demonstration for HCP Terraform Stacks
+Demonstration for HCP Terraform Stacks1
 
 ## Introduction
 
@@ -12,10 +12,10 @@ Ah crap, here I go pontificating some more. You can skip this section if you don
 
 In the world of Terraform, a fairly common pattern has emerged regarding root modules. The root module has become the glue to link together one or more child modules that handle the actual infrastructure definitions. Consider an environment that has the following high-level components:
 
-* Azure VM Scale-Set
-* Azure Key Vault
-* Network Security Group
-* Azure Load Balancer
+- Azure VM Scale-Set
+- Azure Key Vault
+- Network Security Group
+- Azure Load Balancer
 
 There are now Azure Verified Modules for many of these components, so your abbreviated root module might look something like this:
 
@@ -64,11 +64,11 @@ This approach is great! It focuses on code reuse and lets you version and upgrad
 
 However, there are some problems with this approach:
 
-* Defining and managing environments
-* Sequencing deployments for unknown values
-* Dynamically creating providers
-* Larger state files
-* Blast radius considerations
+- Defining and managing environments
+- Sequencing deployments for unknown values
+- Dynamically creating providers
+- Larger state files
+- Blast radius considerations
 
 I don't want to get too mired in all this, but what the hell, it's my README and you're reading it.
 
@@ -143,4 +143,4 @@ Oh yeah, we were talking about Stacks! My original point was that building a com
 
 Terraform Stacks let you describe a set of components that comprise a stack and deployments that will use the stack to create resources. Think of a component as a layer, or what you would include in a Terraform child module. For an application, the components might be the front-end, backend, and database. A deployment is a single instance of the stack, which could be by environment tier, e.g. dev, prod, and qa. Or by location, e.g. east us, northern europe, and australia. Or both!
 
-Within the stack definition, you can declaratively describe the relationship between components of the stack. 
+Within the stack definition, you can declaratively describe the relationship between components of the stack.
