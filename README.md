@@ -1,6 +1,6 @@
 # tfc-stacks-demo
 
-Demonstration for HCP Terraform Stacks1
+Demonstration for HCP Terraform Stacks
 
 ## Introduction
 
