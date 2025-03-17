@@ -34,6 +34,33 @@ component "vm" {
     }
 }
 
+component "bastionhost" {
+    source = "./bastionhost"
+
+    inputs = {
+        location = var.location
+        tags = var.tags
+    }
+
+    providers = {
+        azurerm = provider.azurerm.this
+    }
+  
+}
+
+component "keyvault" {
+    source = "./keyvault"
+
+    inputs = {
+        location = var.location
+        tags = var.tags
+     }
+
+    providers = {
+        azurerm = provider.azurerm.this
+    }
+}
+
 # component "database" {
 #     source = "./database"
 
