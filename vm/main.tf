@@ -1,5 +1,5 @@
 locals {
-  name = "${var.prefix}-vm-${var.suffix}"
+  name = "az-${var.prefix}-vm-app01"
 }
 
 resource "azurerm_resource_group" "main" {

@@ -1,5 +1,5 @@
 locals {
-  name = "${var.prefix}-net-${var.suffix}"
+  name = "az-${var.prefix}-vnet01"
 }
 
 resource "azurerm_resource_group" "main" {

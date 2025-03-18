@@ -18,12 +18,12 @@ deployment "dev" {
         tenant_id = "99ef90fc-6e45-47a4-ae28-3916483dc9f2" # Azure Main
 
         location = local.location
-        prefix = "tfstack"
-        suffix = "644547"
+        prefix = "d-tfstack"
+        suffix = "01"
         cidr_range = "10.0.0.0/16"
         subnets = {
-            subnet1 = ["10.0.0.0/24"]
-            subnet2 = ["10.0.1.0/24"]
+            bastion = ["10.0.0.0/24"]
+            subnet1 = ["10.0.1.0/24"]
         }
         tags = {
             Environment = "Development"
