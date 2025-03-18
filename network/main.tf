@@ -1,16 +1,16 @@
 locals {
-  name = "az-${var.prefix}-vnet01"
+  name = "${var.prefix}-network01"
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = local.name
+  name     = "${local.name}-rg"
   location = var.location
 
   tags = var.tags
 }
 
 resource "azurerm_virtual_network" "main" {
-  name                = local.name
+  name                = "${local.name}-vnet01"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   address_space       = [var.cidr_range]

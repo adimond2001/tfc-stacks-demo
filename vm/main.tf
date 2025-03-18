@@ -1,9 +1,9 @@
 locals {
-  name = "az-${var.prefix}-vm-app01"
+  name = "${var.prefix}-infra01"
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = local.name
+  name     = "${local.name}-rg"
   location = var.location
 
   tags = var.tags
@@ -19,7 +19,7 @@ module "testvm" {
   encryption_at_host_enabled         = false
   generate_admin_password_or_ssh_key = true
   location                           = azurerm_resource_group.main.location
-  name                               = local.name
+  name                               = "${local.name}-vm"
   resource_group_name                = azurerm_resource_group.main.name
   os_type                            = "Linux"
   sku_size                           = var.vm_sku_size
