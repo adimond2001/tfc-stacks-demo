@@ -15,24 +15,24 @@ component "network" {
     }
 }
 
-component "vm" {
-    source = "./vm"
+# component "vm" {
+#     source = "./vm"
 
-    inputs = {
-        location = var.location
-        prefix = var.prefix
-        suffix = var.suffix
-        vm_subnet_id = component.network.subnet_ids[1]
-        tags = var.tags
-    }
+#     inputs = {
+#         location = var.location
+#         prefix = var.prefix
+#         suffix = var.suffix
+#         vm_subnet_id = component.network.subnet_ids[1]
+#         tags = var.tags
+#     }
 
-    providers = {
-        azurerm = provider.azurerm.this
-        tls = provider.tls.this
-        random = provider.random.this
-        modtm = provider.modtm.this
-    }
-}
+#     providers = {
+#         azurerm = provider.azurerm.this
+#         tls = provider.tls.this
+#         random = provider.random.this
+#         modtm = provider.modtm.this
+#     }
+# }
 
 # component "bastionhost" {
 #     source = "./bastionhost"

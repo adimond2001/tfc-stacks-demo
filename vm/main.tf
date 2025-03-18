@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "main" {
   tags = var.tags
 }
 
-module "testvm" {
+module "testvm01" {
   source  = "Azure/avm-res-compute-virtualmachine/azurerm"
   version = "0.16.0"
 
@@ -19,7 +19,7 @@ module "testvm" {
   encryption_at_host_enabled         = false
   generate_admin_password_or_ssh_key = true
   location                           = azurerm_resource_group.main.location
-  name                               = "${local.name}-vm"
+  name                               = "${local.name}-vm-01"
   resource_group_name                = azurerm_resource_group.main.name
   os_type                            = "Linux"
   sku_size                           = var.vm_sku_size
