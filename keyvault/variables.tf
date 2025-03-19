@@ -38,3 +38,8 @@ variable "kv-ap-objid02" {
   description = "Azure Entra ObjectID for a Key Vault access policy"
   type        = string
 }
+
+variable "workspace_resource_id" {
+  description = "Azure Entra ObjectID for a Key Vault access policy"
+  type        = string
+}

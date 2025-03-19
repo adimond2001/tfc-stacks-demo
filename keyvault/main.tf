@@ -32,6 +32,16 @@ module "avm-res-keyvault-vault" {
   wait_for_rbac_before_secret_operations = {
     create = "60s"
   }
+  diagnostic_settings = {
+    to_la = {
+      name                  = "to-la"
+      workspace_resource_id = var.workspace_resource_id
+      log_analytics_destination = {
+        category = "AuditEvent"
+        enabled  = true
+      }
+    }
+  }
   #legacy_access_policies_enabled = true # Enables the legacy access policies in the Key Vault
   #   legacy_access_policies = {
   #     kvap01 = {

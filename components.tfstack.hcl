@@ -28,7 +28,7 @@ component "vm" {
     azurerm = provider.azurerm.this
     tls     = provider.tls.this
     modtm   = provider.modtm.this
-    random = provider.random.this
+    random  = provider.random.this
   }
 }
 
@@ -50,21 +50,22 @@ component "keyvault" {
   source = "./keyvault"
 
   inputs = {
-    location            = var.location
-    tenant_id           = var.tenant_id
-    resource_group_name = component.vm.resource_group_name
-    prefix              = var.prefix
-    kv_sku_name         = "standard"
-    tags                = var.tags
-    kv-ap-objid01       = "d64b88a4-c3dd-47e0-817f-b3057e0b3029" # Azure AD Object ID: Alan Dimond
-    kv-ap-objid02       = "a14ec4d0-c6c9-4fd9-836b-9fa261eed5ee" # Azure App Registration ID: tfc-application
+    location              = var.location
+    tenant_id             = var.tenant_id
+    resource_group_name   = component.vm.resource_group_name
+    prefix                = var.prefix
+    kv_sku_name           = "standard"
+    tags                  = var.tags
+    kv-ap-objid01         = "d64b88a4-c3dd-47e0-817f-b3057e0b3029" # Azure AD Object ID: Alan Dimond
+    kv-ap-objid02         = "a14ec4d0-c6c9-4fd9-836b-9fa261eed5ee" # Azure App Registration ID: tfc-application
+    workspace_resource_id = component.keyvault.workspace_resource_id
   }
 
   providers = {
     azurerm = provider.azurerm.this
     modtm   = provider.modtm.this
     time    = provider.time.this
-    random = provider.random.this
+    random  = provider.random.this
   }
 }
 
@@ -83,7 +84,7 @@ component "monitoring" {
     azurerm = provider.azurerm.this
     modtm   = provider.modtm.this
     azapi   = provider.azapi.this
-    random = provider.random.this
+    random  = provider.random.this
   }
 }
 

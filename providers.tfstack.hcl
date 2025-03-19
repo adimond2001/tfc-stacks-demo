@@ -20,9 +20,9 @@ required_providers {
     version = "0.13.0"
   }
   azapi = {
-      source = "Azure/azapi"
-      version = "2.3.0"
-    }
+    source  = "Azure/azapi"
+    version = "2.3.0"
+  }
 }
 
 provider "azurerm" "this" {
