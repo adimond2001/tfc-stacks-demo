@@ -17,7 +17,7 @@ module "avm-res-keyvault-vault" {
   sku_name                       = var.kv_sku_name
   purge_protection_enabled       = false
   enable_telemetry               = true
-  legacy_access_policies_enabled = true
+  legacy_access_policies_enabled = false
   role_assignments = {
     deployment_user_kv_admin01 = {
       role_definition_id_or_name = "Key Vault Administrator"
