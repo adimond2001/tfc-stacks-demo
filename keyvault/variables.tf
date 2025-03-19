@@ -39,7 +39,7 @@ variable "kv-ap-objid02" {
   type        = string
 }
 
-variable "workspace_resource_id" {
-  description = "Azure Entra ObjectID for a Key Vault access policy"
+variable "laworkspace_id" {
+  description = "Log Analytics Workspace ID"
   type        = string
 }

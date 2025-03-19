@@ -35,7 +35,7 @@ module "avm-res-keyvault-vault" {
   diagnostic_settings = {
     to_la = {
       name                  = "to-la"
-      workspace_resource_id = var.workspace_resource_id
+      workspace_resource_id = var.laworkspace_id
       log_analytics_destination = {
         category = "AuditEvent"
         enabled  = true
