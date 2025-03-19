@@ -2,6 +2,9 @@ locals {
   name = var.prefix
 }
 
+# Get current context of the deployment
+data "azurerm_client_config" "current" {}
+
 # Define a Key Vault
 module "avm-res-keyvault-vault" {
   source  = "Azure/avm-res-keyvault-vault/azurerm"
@@ -15,16 +18,29 @@ module "avm-res-keyvault-vault" {
   purge_protection_enabled       = false
   enable_telemetry               = true
   legacy_access_policies_enabled = true
-  legacy_access_policies = {
-    kvap01 = {
-      object_id          = var.kv-ap-objid01
-      secret_permissions = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+  role_assignments = {
+    deployment_user_kv_admin01 = {
+      role_definition_id_or_name = "Key Vault Administrator"
+      principal_id               = data.azurerm_client_config.current.object_id
     }
-    kvap02 = {
-      object_id          = var.kv-ap-objid02
-      secret_permissions = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+    deployment_user_kv_admin02 = {
+      role_definition_id_or_name = "Key Vault Administrator"
+      principal_id               = var.kv-ap-objid01
     }
   }
+  wait_for_rbac_before_secret_operations = {
+    create = "60s"
+  }
+  #   legacy_access_policies = {
+  #     kvap01 = {
+  #       object_id          = var.kv-ap-objid01
+  #       secret_permissions = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+  #     }
+  #     kvap02 = {
+  #       object_id          = var.kv-ap-objid02
+  #       secret_permissions = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+  #     }
+  #   }
 }
 
 # # Deploy a Key Vault Secret containing the VM Admin Username

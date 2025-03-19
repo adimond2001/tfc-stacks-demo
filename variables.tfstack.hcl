@@ -1,7 +1,7 @@
 variable "location" {
   description = "Location for the resources"
   type        = string
-  default = "uksouth"
+  default     = "uksouth"
 }
 
 variable "prefix" {
@@ -29,19 +29,19 @@ variable "subnets" {
   type        = map(list(string))
 }
 
-variable "identity_token" { 
-  type      = string 
+variable "identity_token" {
+  type      = string
   ephemeral = true
 }
 
-variable "client_id" { 
+variable "client_id" {
   type = string
 }
 
-variable "subscription_id" { 
-  type = string 
+variable "subscription_id" {
+  type = string
 }
 
-variable "tenant_id" { 
-  type = string 
+variable "tenant_id" {
+  type = string
 }

@@ -12,13 +12,13 @@ required_providers {
     version = "~>3.0"
   }
   modtm = {
-    source = "azure/modtm"
+    source  = "azure/modtm"
     version = "~>0.3"
   }
-   time = {
-      source = "hashicorp/time"
-      version = "0.13.0"
-    }
+  time = {
+    source  = "hashicorp/time"
+    version = "0.13.0"
+  }
 }
 
 provider "azurerm" "this" {
@@ -27,15 +27,15 @@ provider "azurerm" "this" {
 
     use_cli = false
 
-    use_oidc = true
-    oidc_token = var.identity_token
-    client_id = var.client_id
+    use_oidc        = true
+    oidc_token      = var.identity_token
+    client_id       = var.client_id
     subscription_id = var.subscription_id
-    tenant_id = var.tenant_id
+    tenant_id       = var.tenant_id
   }
 }
 
 provider "tls" "this" {}
 provider "random" "this" {}
 provider "modtm" "this" {}
-provider "time" "this"{}
+provider "time" "this" {}
