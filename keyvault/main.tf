@@ -14,10 +14,11 @@ module "avm-res-keyvault-vault" {
   name                           = "${local.name}-kv-01"
   resource_group_name            = var.resource_group_name
   tenant_id                      = var.tenant_id
+  tags                           = var.tags
   sku_name                       = var.kv_sku_name
   purge_protection_enabled       = false
   enable_telemetry               = true
-  legacy_access_policies_enabled = false
+  legacy_access_policies_enabled = false # Enables Azure RBAC for Key Vault
   role_assignments = {
     deployment_user_kv_admin01 = {
       role_definition_id_or_name = "Key Vault Administrator"
@@ -31,6 +32,7 @@ module "avm-res-keyvault-vault" {
   wait_for_rbac_before_secret_operations = {
     create = "60s"
   }
+  #legacy_access_policies_enabled = true # Enables the legacy access policies in the Key Vault
   #   legacy_access_policies = {
   #     kvap01 = {
   #       object_id          = var.kv-ap-objid01

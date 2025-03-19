@@ -19,6 +19,10 @@ required_providers {
     source  = "hashicorp/time"
     version = "0.13.0"
   }
+  azapi = {
+      source = "Azure/azapi"
+      version = "2.3.0"
+    }
 }
 
 provider "azurerm" "this" {
@@ -39,3 +43,4 @@ provider "tls" "this" {}
 provider "random" "this" {}
 provider "modtm" "this" {}
 provider "time" "this" {}
+provider "azapi" "this" {}

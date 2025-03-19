@@ -27,8 +27,8 @@ component "vm" {
   providers = {
     azurerm = provider.azurerm.this
     tls     = provider.tls.this
-    random  = provider.random.this
     modtm   = provider.modtm.this
+    random = provider.random.this
   }
 }
 
@@ -62,9 +62,28 @@ component "keyvault" {
 
   providers = {
     azurerm = provider.azurerm.this
-    random  = provider.random.this
     modtm   = provider.modtm.this
     time    = provider.time.this
+    random = provider.random.this
+  }
+}
+
+component "monitoring" {
+  source = "./monitoring"
+
+  inputs = {
+    location            = var.location
+    tenant_id           = var.tenant_id
+    resource_group_name = component.vm.resource_group_name
+    prefix              = var.prefix
+    tags                = var.tags
+  }
+
+  providers = {
+    azurerm = provider.azurerm.this
+    modtm   = provider.modtm.this
+    azapi   = provider.azapi.this
+    random = provider.random.this
   }
 }
 
