@@ -8,6 +8,11 @@ variable "location" {
   type        = string
 }
 
+variable "resource_group_name" {
+  description = "Name of Resource Group"
+  type        = string
+}
+
 variable "cidr_range" {
   description = "CIDR range for the vnet"
   type        = string

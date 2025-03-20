@@ -1,11 +1,11 @@
-variable "base_name" {
+variable "prefix" {
+  description = "Prefix for the resources"
   type        = string
-  description = "Base name of Bastion Host"
 }
 
 variable "resource_group_name" {
   type        = string
-  description = "Name of Resource Group where Bastion will be placed"
+  description = "Name of Resource Group where resource will be placed"
 }
 
 variable "location" {
@@ -13,28 +13,17 @@ variable "location" {
   description = "Location (Region) where Bastion will be placed"
 }
 
-variable "object_id_CET" {
-  type        = string
-  description = "Object ID of group: GBL_SEC_GCP_CE. Fur use in a Key Vault Access Policy"
-}
-
-variable "object_id_AzAppReg01" {
-  type        = string
-  description = "Object ID of Azure Enterprise Application: SREApps. For use in a Key Vault Access Policy and role assignments"
-}
-
-variable "compute_admin_username" {
-  type        = string
-  description = "Admin username for VMs"
-}
-
-variable "compute_admin_password" {
-  type        = string
-  description = "Admin password for VMs"
-  sensitive   = true
-}
-
 variable "tags" {
   description = "Tags to set for all resources"
   type        = map(string)
+}
+
+variable "vm_subnet_id" {
+  type        = string
+  description = "ID of the subnet the Bastion will be associated with"
+}
+
+variable "public_ip_address01_id" {
+  type        = string
+  description = "ID of the subnet the Bastion will be associated with"
 }

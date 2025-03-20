@@ -1,64 +1,93 @@
-component "network" {
-  source = "./network"
+component "resource_group" {
+  source = "./resourcegroup"
 
   inputs = {
-    location   = var.location
-    prefix     = var.prefix
-    cidr_range = var.cidr_range
-    subnets    = var.subnets
-    tags       = var.tags
+    location = var.location
+    prefix   = var.prefix
+    tags     = var.tags
   }
 
   providers = {
     azurerm = provider.azurerm.this
-  }
-}
-
-component "vm" {
-  source = "./vm"
-
-  inputs = {
-    location     = var.location
-    prefix       = var.prefix
-    vm_subnet_id = component.network.subnet_ids[1]
-    tags         = var.tags
-  }
-
-  providers = {
-    azurerm = provider.azurerm.this
-    tls     = provider.tls.this
     modtm   = provider.modtm.this
     random  = provider.random.this
   }
 }
 
-# component "bastionhost" {
-#     source = "./bastionhost"
+component "network" {
+  source = "./network"
 
-#     inputs = {
-#         location = var.location
-#         tags = var.tags
-#     }
+  inputs = {
+    location            = var.location
+    prefix              = var.prefix
+    resource_group_name = component.resource_group.network_rg_name
+    cidr_range          = var.cidr_range
+    subnets             = var.subnets
+    tags                = var.tags
+  }
 
-#     providers = {
-#         azurerm = provider.azurerm.this
-#     }
+  providers = {
+    azurerm = provider.azurerm.this
+    modtm   = provider.modtm.this
+    random  = provider.random.this
+  }
+  depends_on = [ component.resource_group]
+}
 
+# component "vm" {
+#   source = "./vm"
+
+#   inputs = {
+#     location            = var.location
+#     prefix              = var.prefix
+#     resource_group_name = component.resource_group.infra_rg_name
+#     tags                = var.tags
+#     vm_subnet_id        = component.network.subnet_ids[1]
+#   }
+
+#   providers = {
+#     azurerm = provider.azurerm.this
+#     tls     = provider.tls.this
+#     modtm   = provider.modtm.this
+#     random  = provider.random.this
+#   }
+#   depends_on = [ component.resource_group, component.network ]
 # }
+
+component "bastionhost" {
+  source = "./bastionhost"
+
+  inputs = {
+    location               = var.location
+    prefix                 = var.prefix
+    resource_group_name    = component.resource_group.infra_rg_name
+    tags                   = var.tags
+    vm_subnet_id           = component.network.subnet_ids[1]
+    public_ip_address01_id = component.network.pip01_publicip_id
+
+  }
+
+  providers = {
+    azurerm = provider.azurerm.this
+    modtm   = provider.modtm.this
+    random  = provider.random.this
+  }
+  depends_on = [ component.resource_group, component.network]
+}
 
 component "keyvault" {
   source = "./keyvault"
 
   inputs = {
-    location              = var.location
-    tenant_id             = var.tenant_id
-    resource_group_name   = component.vm.resource_group_name
-    prefix                = var.prefix
-    kv_sku_name           = "standard"
-    tags                  = var.tags
-    kv-ap-objid01         = "d64b88a4-c3dd-47e0-817f-b3057e0b3029" # Azure AD Object ID: Alan Dimond
-    kv-ap-objid02         = "a14ec4d0-c6c9-4fd9-836b-9fa261eed5ee" # Azure App Registration ID: tfc-application
-    laworkspace_id = component.monitoring.laworkspaceid
+    location            = var.location
+    tenant_id           = var.tenant_id
+    resource_group_name = component.resource_group.infra_rg_name
+    prefix              = var.prefix
+    kv_sku_name         = "standard"
+    tags                = var.tags
+    kv-ap-objid01       = "d64b88a4-c3dd-47e0-817f-b3057e0b3029" # Azure AD Object ID: Alan Dimond
+    kv-ap-objid02       = "a14ec4d0-c6c9-4fd9-836b-9fa261eed5ee" # Azure App Registration ID: tfc-application
+    laworkspace_id      = component.monitoring.laworkspaceid
   }
 
   providers = {
@@ -67,8 +96,7 @@ component "keyvault" {
     time    = provider.time.this
     random  = provider.random.this
   }
-
-  depends_on = [ component.vm, component.monitoring ]
+  depends_on = [component.resource_group]
 }
 
 component "monitoring" {
@@ -77,7 +105,7 @@ component "monitoring" {
   inputs = {
     location            = var.location
     tenant_id           = var.tenant_id
-    resource_group_name = component.vm.resource_group_name
+    resource_group_name = component.resource_group.infra_rg_name
     prefix              = var.prefix
     tags                = var.tags
   }
@@ -88,6 +116,7 @@ component "monitoring" {
     azapi   = provider.azapi.this
     random  = provider.random.this
   }
+  depends_on = [ component.resource_group, component.network ]
 }
 
 # component "database" {
