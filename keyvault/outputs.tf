@@ -1,12 +1,7 @@
-# output "resource_group_name" {
-#   value = azurerm_resource_group.main.name
-# }
+output "keyvault01_id" {
+  value = module.avm-res-keyvault-vault.resource_id
+}
 
-# output "vm_id" {
-#   value = module.testvm01.resource_id
-# }
-
-# output "vm_resource" {
-#   value     = module.testvm01.resource
-#   sensitive = true
-# }
+output "keyvault01_uri" {
+  value = module.avm-res-keyvault-vault.uri
+}

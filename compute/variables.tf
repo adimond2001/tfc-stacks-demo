@@ -34,3 +34,23 @@ variable "vm_subnet_id" {
   description = "Subnet ID for the VM"
   type        = string
 }
+
+variable "laworkspace_id" {
+  description = "ID of Log Analytics Workspace"
+  type        = string
+}
+
+variable "laworkspace_name" {
+  description = "Name of Log Analytics Workspace"
+  type        = string
+}
+
+variable "keyvault01_id" {
+  description = "ID of Key Vault"
+  type        = string
+}
+
+variable "keyvault01_uri" {
+  description = "URI of Key Vault"
+  type        = string
+}

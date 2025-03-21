@@ -31,28 +31,33 @@ component "network" {
     modtm   = provider.modtm.this
     random  = provider.random.this
   }
-  depends_on = [ component.resource_group]
+  depends_on = [component.resource_group]
 }
 
-# component "vm" {
-#   source = "./vm"
+component "compute" {
+  source = "./compute"
 
-#   inputs = {
-#     location            = var.location
-#     prefix              = var.prefix
-#     resource_group_name = component.resource_group.infra_rg_name
-#     tags                = var.tags
-#     vm_subnet_id        = component.network.subnet_ids[1]
-#   }
+  inputs = {
+    location            = var.location
+    prefix              = var.prefix
+    resource_group_name = component.resource_group.infra_rg_name
+    tags                = var.tags
+    vm_subnet_id        = component.network.subnet_ids[1]
+    laworkspace_id      = component.monitoring.laworkspaceid
+    laworkspace_name    = component.monitoring.laworkspace_name
+    keyvault01_id       = component.keyvault.keyvault01_id
+    keyvault01_uri      = component.keyvault.keyvault01_uri
+  }
 
-#   providers = {
-#     azurerm = provider.azurerm.this
-#     tls     = provider.tls.this
-#     modtm   = provider.modtm.this
-#     random  = provider.random.this
-#   }
-#   depends_on = [ component.resource_group, component.network ]
-# }
+  providers = {
+    azurerm = provider.azurerm.this
+    tls     = provider.tls.this
+    modtm   = provider.modtm.this
+    random  = provider.random.this
+    azapi   = provider.azapi.this
+  }
+  depends_on = [component.resource_group, component.network, component.keyvault, component.monitoring]
+}
 
 component "bastionhost" {
   source = "./bastionhost"
@@ -72,7 +77,7 @@ component "bastionhost" {
     modtm   = provider.modtm.this
     random  = provider.random.this
   }
-  depends_on = [ component.resource_group, component.network]
+  depends_on = [component.resource_group, component.network]
 }
 
 component "keyvault" {
@@ -116,7 +121,7 @@ component "monitoring" {
     azapi   = provider.azapi.this
     random  = provider.random.this
   }
-  depends_on = [ component.resource_group, component.network ]
+  depends_on = [component.resource_group, component.network]
 }
 
 # component "database" {
