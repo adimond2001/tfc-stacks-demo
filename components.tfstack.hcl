@@ -65,9 +65,9 @@ component "bastionhost" {
   inputs = {
     location               = var.location
     prefix                 = var.prefix
-    resource_group_name    = component.resource_group.infra_rg_name
+    resource_group_name    = component.resource_group.network_rg_name
     tags                   = var.tags
-    vm_subnet_id           = component.network.subnet_ids[1]
+    vm_subnet_id           = component.network.subnet_ids[0]
     public_ip_address01_id = component.network.pip01_publicip_id
 
   }
